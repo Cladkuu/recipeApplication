@@ -1,33 +1,36 @@
 package com.stoyakin_artem.recipeapplication.Controller;
 
 import com.stoyakin_artem.recipeapplication.Model.Category;
+import com.stoyakin_artem.recipeapplication.Model.Recipe;
 import com.stoyakin_artem.recipeapplication.Model.UnitOfMeasure;
 import com.stoyakin_artem.recipeapplication.repositories.CategoryRepository;
 import com.stoyakin_artem.recipeapplication.repositories.UnitOfMeasureRepository;
+import com.stoyakin_artem.recipeapplication.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
-@RequestMapping(value = {"/", "default"})
+@RequestMapping(value = {"/", "default", ""})
 public class IndexController {
-    private final CategoryRepository categoryRepository;
-    private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+
+    private final RecipeService recipeService;
+
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @GetMapping
-    public void findIndex() {
-
-        Optional<Category> category = categoryRepository.findByCategoryName("Italian");
-        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByDescription("Ounce");
-
-        System.out.println("Category: " + category.get().getId());
-        System.out.println("unitOfMeasure: " + unitOfMeasure.get().getId());
+    public String findIndex(Model model) {
+        model.addAttribute("recipes", recipeService.recipes());
+        return "index";
     }
+
 }

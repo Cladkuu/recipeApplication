@@ -1,9 +1,6 @@
 package com.stoyakin_artem.recipeapplication.Bootstrap;
 
-import com.stoyakin_artem.recipeapplication.Model.Difficulty;
-import com.stoyakin_artem.recipeapplication.Model.Ingredient;
-import com.stoyakin_artem.recipeapplication.Model.Recipe;
-import com.stoyakin_artem.recipeapplication.Model.UnitOfMeasure;
+import com.stoyakin_artem.recipeapplication.Model.*;
 import com.stoyakin_artem.recipeapplication.repositories.CategoryRepository;
 import com.stoyakin_artem.recipeapplication.repositories.RecipeRepository;
 import com.stoyakin_artem.recipeapplication.repositories.UnitOfMeasureRepository;
@@ -16,7 +13,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-//@Component
+@Component
 public class Bootstrap implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private  final UnitOfMeasureRepository unitOfMeasureRepository;
@@ -84,31 +81,53 @@ public class Bootstrap implements CommandLineRunner {
         UnitOfMeasure pintUom = dashUomOptional.get();
         UnitOfMeasure cupsUom = cupsUomOptional.get();
 
+        Optional<Category> americanOptional = categoryRepository.findByCategoryName("American");
+        if(!americanOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
+        }
+        Optional<Category> MexicanOptional = categoryRepository.findByCategoryName("Mexican");
+        if(!MexicanOptional.isPresent()){
+            throw new RuntimeException("Expected Category Not Found");
+        }
+        Category american = americanOptional.get();
+        Category mexican = MexicanOptional.get();
+
+
         Recipe recipe = new Recipe();
         recipe.setDescription("Be careful handling chilis! If using, it's best to wear food-safe gloves. If no gloves are available, wash your hands thoroughly after handling, and do not touch your eyes or the area near your eyes for several hours afterwards.");
         recipe.setPrepTime(10);
         recipe.setCookTime(10);
         recipe.setServings(2);
         recipe.setDifficulty(Difficulty.MODERATE);
+        recipe.getCategories().add(american);
+        recipe.getCategories().add(mexican);
+
+        Notes notes1 = new Notes();
+        notes1.setRecipeNotes("recipeNotes");
+        notes1.setRecipe(recipe);
+        recipe.setNotes(notes1);
 
         Ingredient avocado = new Ingredient();
-        avocado.setAmount(BigDecimal.valueOf(2));
+        avocado.setAmount(new BigDecimal(2));
         avocado.setDescription("Avocado");
+        avocado.setUnitOfMeasure(eachUom);
         avocado.setRecipe(recipe);
 
         Ingredient salt = new Ingredient();
-        salt.setAmount(BigDecimal.valueOf(0,25));
+        salt.setAmount(new BigDecimal(2));
         salt.setDescription("salt");
         salt.setUnitOfMeasure(tableSpoonUom);
+        salt.setRecipe(recipe);
 
         Ingredient lime = new Ingredient();
-        lime.setAmount(BigDecimal.valueOf(1));
+        lime.setAmount(new BigDecimal(2));
         lime.setDescription("lime");
         lime.setUnitOfMeasure(dashUom);
+        lime.setRecipe(recipe);
 
         recipe.getIngredients().add(avocado);
-        recipe.getIngredients().add(lime);
         recipe.getIngredients().add(salt);
+        recipe.getIngredients().add(lime);
 
         return recipe;
 
