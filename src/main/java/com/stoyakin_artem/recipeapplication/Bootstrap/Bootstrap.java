@@ -93,6 +93,7 @@ public class Bootstrap implements CommandLineRunner {
         Category mexican = MexicanOptional.get();
 
 
+
         Recipe recipe = new Recipe();
         recipe.setDescription("Be careful handling chilis! If using, it's best to wear food-safe gloves. If no gloves are available, wash your hands thoroughly after handling, and do not touch your eyes or the area near your eyes for several hours afterwards.");
         recipe.setPrepTime(10);
@@ -102,32 +103,18 @@ public class Bootstrap implements CommandLineRunner {
         recipe.getCategories().add(american);
         recipe.getCategories().add(mexican);
 
+
         Notes notes1 = new Notes();
         notes1.setRecipeNotes("recipeNotes");
-        notes1.setRecipe(recipe);
         recipe.setNotes(notes1);
 
-        Ingredient avocado = new Ingredient();
-        avocado.setAmount(new BigDecimal(2));
-        avocado.setDescription("Avocado");
-        avocado.setUnitOfMeasure(eachUom);
-        avocado.setRecipe(recipe);
-
-        Ingredient salt = new Ingredient();
-        salt.setAmount(new BigDecimal(2));
-        salt.setDescription("salt");
-        salt.setUnitOfMeasure(tableSpoonUom);
-        salt.setRecipe(recipe);
-
-        Ingredient lime = new Ingredient();
-        lime.setAmount(new BigDecimal(2));
-        lime.setDescription("lime");
-        lime.setUnitOfMeasure(dashUom);
-        lime.setRecipe(recipe);
-
-        recipe.getIngredients().add(avocado);
-        recipe.getIngredients().add(salt);
-        recipe.getIngredients().add(lime);
+        Ingredient avocado = new Ingredient("Avocado", new BigDecimal(2), eachUom);
+        Ingredient salt = new Ingredient("salt",new BigDecimal(2), tableSpoonUom);
+        Ingredient lime = new Ingredient("lime", new BigDecimal(2), dashUom);
+        //adding ingridients to recipe
+        recipe.AddIngredient(avocado);
+        recipe.AddIngredient(salt);
+        recipe.AddIngredient(lime);
 
         return recipe;
 

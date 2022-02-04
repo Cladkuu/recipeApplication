@@ -35,9 +35,14 @@ public class Recipe {
     @ManyToMany
     private Set<Category> categories = new HashSet<>();
 
+
     public Recipe() {
     }
 
+    public void AddIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+    }
 
     public Set<Ingredient> getIngredients() {
         return ingredients;
@@ -125,6 +130,7 @@ public class Recipe {
 
     public void setNotes(Notes notes) {
         this.notes = notes;
+        notes.setRecipe(this);
     }
 
     public Difficulty getDifficulty() {
