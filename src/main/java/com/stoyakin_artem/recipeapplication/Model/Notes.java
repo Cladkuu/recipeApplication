@@ -3,11 +3,8 @@ package com.stoyakin_artem.recipeapplication.Model;
 import javax.persistence.*;
 
 @Entity
-public class Notes {
+public class Notes extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Lob
     private String recipeNotes;
@@ -19,13 +16,6 @@ public class Notes {
     private Recipe recipe;
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getRecipeNotes() {
         return recipeNotes;

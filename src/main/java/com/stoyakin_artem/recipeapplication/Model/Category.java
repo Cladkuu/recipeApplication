@@ -5,10 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Category extends BaseEntity{
 
     private String categoryName;
 
@@ -18,13 +15,6 @@ public class Category {
     public Category() {
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCategoryName() {
         return categoryName;

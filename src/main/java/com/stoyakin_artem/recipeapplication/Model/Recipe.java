@@ -5,11 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Recipe {
+public class Recipe extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Lob
     private String description;
@@ -50,14 +47,6 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {

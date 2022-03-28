@@ -4,11 +4,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class Ingredient {
+public class Ingredient extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private String description;
     private BigDecimal amount;
@@ -27,14 +24,6 @@ public class Ingredient {
         this.description = description;
         this.amount = amount;
         this.unitOfMeasure = unitOfMeasure;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getDescription() {
