@@ -1,10 +1,10 @@
 package com.stoyakin_artem.recipeapplication.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.*;
 
+import javax.persistence.Entity;
+
+@Data
 @Entity
 public class UnitOfMeasure extends BaseEntity{
 
@@ -13,11 +13,8 @@ public class UnitOfMeasure extends BaseEntity{
     public UnitOfMeasure() {
     }
 
-    public String getDescription() {
-        return description;
+    protected boolean canEqual(final Object other) {
+        return other instanceof UnitOfMeasure;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

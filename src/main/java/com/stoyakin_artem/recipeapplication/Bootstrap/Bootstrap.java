@@ -4,15 +4,15 @@ import com.stoyakin_artem.recipeapplication.Model.*;
 import com.stoyakin_artem.recipeapplication.repositories.CategoryRepository;
 import com.stoyakin_artem.recipeapplication.repositories.RecipeRepository;
 import com.stoyakin_artem.recipeapplication.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.Optional;
-import java.util.Set;
 
+@Slf4j
 @Component
 public class Bootstrap implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
@@ -30,7 +30,7 @@ public class Bootstrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         recipeRepository.save(makingRecipe());
-        System.out.println("Loading data");
+        log.debug("Loading data");
 
     }
 
@@ -80,6 +80,7 @@ public class Bootstrap implements CommandLineRunner {
         UnitOfMeasure dashUom = dashUomOptional.get();
         UnitOfMeasure pintUom = dashUomOptional.get();
         UnitOfMeasure cupsUom = cupsUomOptional.get();
+        log.debug("units of measure are added");
 
         Optional<Category> americanOptional = categoryRepository.findByCategoryName("American");
         if(!americanOptional.isPresent()){
@@ -91,6 +92,7 @@ public class Bootstrap implements CommandLineRunner {
         }
         Category american = americanOptional.get();
         Category mexican = MexicanOptional.get();
+        log.debug("categories are added");
 
 
 
@@ -106,7 +108,8 @@ public class Bootstrap implements CommandLineRunner {
 
         Notes notes1 = new Notes();
         notes1.setRecipeNotes("recipeNotes");
-        recipe.setNotes(notes1);
+        recipe.setNotesO(notes1);
+        log.debug("notes are added");
 
         Ingredient avocado = new Ingredient("Avocado", new BigDecimal(2), eachUom);
         Ingredient salt = new Ingredient("salt",new BigDecimal(2), tableSpoonUom);
@@ -115,8 +118,11 @@ public class Bootstrap implements CommandLineRunner {
         recipe.AddIngredient(avocado);
         recipe.AddIngredient(salt);
         recipe.AddIngredient(lime);
+        log.debug("Ingredient are added");
 
+        log.debug("Recipe is ready");
         return recipe;
+
 
     }
 }

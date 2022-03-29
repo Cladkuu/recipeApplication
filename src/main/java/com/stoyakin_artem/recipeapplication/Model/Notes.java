@@ -1,7 +1,13 @@
 package com.stoyakin_artem.recipeapplication.Model;
 
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.Entity;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+
+@Data
+@EqualsAndHashCode(exclude = {"recipe"})
 @Entity
 public class Notes extends BaseEntity{
 
@@ -16,20 +22,8 @@ public class Notes extends BaseEntity{
     private Recipe recipe;
 
 
-
-    public String getRecipeNotes() {
-        return recipeNotes;
+    protected boolean canEqual(final Object other) {
+        return other instanceof Notes;
     }
 
-    public void setRecipeNotes(String recipeNotes) {
-        this.recipeNotes = recipeNotes;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }
