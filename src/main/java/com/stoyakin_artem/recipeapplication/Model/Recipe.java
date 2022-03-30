@@ -7,6 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Recipe extends BaseEntity{
 
@@ -36,9 +38,6 @@ public class Recipe extends BaseEntity{
     private Set<Category> categories = new HashSet<>();
 
 
-    public Recipe() {
-    }
-
     public void AddIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
         this.ingredients.add(ingredient);
@@ -54,4 +53,20 @@ public class Recipe extends BaseEntity{
         return other instanceof Recipe;
     }
 
+    @Builder
+    public Recipe(Long id, String description, Integer prepTime, Integer cookTime, Integer servings, String url, String source, String direction, byte[] image, Notes notes, Set<Ingredient> ingredients, Difficulty difficulty, Set<Category> categories) {
+        super(id);
+        this.description = description;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        this.servings = servings;
+        this.url = url;
+        this.source = source;
+        this.direction = direction;
+        this.image = image;
+        this.notes = notes;
+        this.ingredients = ingredients;
+        this.difficulty = difficulty;
+        this.categories = categories;
+    }
 }
