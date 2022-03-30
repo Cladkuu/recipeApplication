@@ -6,6 +6,7 @@ import com.stoyakin_artem.recipeapplication.Model.UnitOfMeasure;
 import com.stoyakin_artem.recipeapplication.repositories.CategoryRepository;
 import com.stoyakin_artem.recipeapplication.repositories.UnitOfMeasureRepository;
 import com.stoyakin_artem.recipeapplication.services.RecipeService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +20,12 @@ import java.util.Set;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 @RequestMapping(value = {"/", "default", ""})
 public class IndexController {
 
 
     private final RecipeService recipeService;
-
-    public IndexController(RecipeService recipeService) {
-        this.recipeService = recipeService;
-    }
 
     @GetMapping
     public String findIndex(Model model) {

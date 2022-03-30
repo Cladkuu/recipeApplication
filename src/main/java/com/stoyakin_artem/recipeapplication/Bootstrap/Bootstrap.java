@@ -101,6 +101,8 @@ public class Bootstrap implements CommandLineRunner {
         recipe.setPrepTime(10);
         recipe.setCookTime(10);
         recipe.setServings(2);
+        recipe.setDirection("Very testy dish");
+        recipe.setSource("The Internet");
         recipe.setDifficulty(Difficulty.MODERATE);
         recipe.getCategories().add(american);
         recipe.getCategories().add(mexican);

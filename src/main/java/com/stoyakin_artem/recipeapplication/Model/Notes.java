@@ -8,15 +8,15 @@ import javax.persistence.OneToOne;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipe"})
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Notes extends BaseEntity{
 
 
     @Lob
     private String recipeNotes;
-
-    public Notes() {
-    }
 
     @OneToOne(mappedBy = "notes")
     private Recipe recipe;

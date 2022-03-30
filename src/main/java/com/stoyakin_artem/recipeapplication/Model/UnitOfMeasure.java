@@ -5,13 +5,13 @@ import lombok.*;
 import javax.persistence.Entity;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class UnitOfMeasure extends BaseEntity{
 
     private String description;
-
-    public UnitOfMeasure() {
-    }
 
     protected boolean canEqual(final Object other) {
         return other instanceof UnitOfMeasure;

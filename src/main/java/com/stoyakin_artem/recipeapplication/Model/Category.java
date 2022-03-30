@@ -8,6 +8,9 @@ import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipes"})
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Category extends BaseEntity{
 
@@ -15,9 +18,5 @@ public class Category extends BaseEntity{
 
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes = new HashSet<>();
-
-    public Category() {
-    }
-
 
 }
