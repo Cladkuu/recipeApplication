@@ -1,6 +1,7 @@
 package com.stoyakin_artem.recipeapplication.Controller;
 
 import com.stoyakin_artem.recipeapplication.Model.Recipe;
+import com.stoyakin_artem.recipeapplication.commands.RecipeCommand;
 import com.stoyakin_artem.recipeapplication.services.RecipeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,5 +23,9 @@ public class RecipeController {
     public String getRecipe(@PathVariable Long id, Model model){
         model.addAttribute("recipe", recipeService.findById(id));
         return "recipe/show";
+    }
+
+    public RecipeCommand saveRecipe(RecipeCommand recipeCommand){
+        return recipeService.SaveRecipe(recipeCommand);
     }
 }

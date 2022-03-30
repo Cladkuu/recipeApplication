@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(exclude = {"recipe"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 public class Ingredient extends BaseEntity{
 
@@ -29,6 +28,15 @@ public class Ingredient extends BaseEntity{
     public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure) {
         this.description = description;
         this.amount = amount;
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
+    @Builder
+    public Ingredient(Long id, String description, BigDecimal amount, Recipe recipe, UnitOfMeasure unitOfMeasure) {
+        super(id);
+        this.description = description;
+        this.amount = amount;
+        this.recipe = recipe;
         this.unitOfMeasure = unitOfMeasure;
     }
 

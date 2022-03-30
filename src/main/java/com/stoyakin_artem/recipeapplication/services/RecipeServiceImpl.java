@@ -1,6 +1,8 @@
 package com.stoyakin_artem.recipeapplication.services;
 
 import com.stoyakin_artem.recipeapplication.Model.Recipe;
+import com.stoyakin_artem.recipeapplication.commands.RecipeCommand;
+import com.stoyakin_artem.recipeapplication.converters.RecipesConverter;
 import com.stoyakin_artem.recipeapplication.repositories.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +17,7 @@ import java.util.Set;
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private final RecipeRepository recipeRepository;
+    private final RecipesConverter recipesConverter;
 
     @Override
     public Set<Recipe> recipes() {
@@ -27,6 +30,13 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe findById(Long id) {
         return recipeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public RecipeCommand SaveRecipe(RecipeCommand recipeCommand) {
+        Recipe recipe = recipeRepository.save(recipesConverter.convertToEntity(recipeCommand));
+        log.debug("Saved recipe ID : " + recipe.getId());
+        return recipesConverter.convertToCommand(recipe);
     }
 
 

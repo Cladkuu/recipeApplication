@@ -10,7 +10,6 @@ import javax.persistence.OneToOne;
 @EqualsAndHashCode(exclude = {"recipe"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 public class Notes extends BaseEntity{
 
@@ -21,6 +20,13 @@ public class Notes extends BaseEntity{
     @OneToOne(mappedBy = "notes")
     private Recipe recipe;
 
+
+    @Builder
+    public Notes(Long id, String recipeNotes, Recipe recipe) {
+        super(id);
+        this.recipeNotes = recipeNotes;
+        this.recipe = recipe;
+    }
 
     protected boolean canEqual(final Object other) {
         return other instanceof Notes;

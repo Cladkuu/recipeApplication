@@ -49,6 +49,7 @@ public class Recipe extends BaseEntity{
         notes.setRecipe(this);
     }
 
+
     protected boolean canEqual(final Object other) {
         return other instanceof Recipe;
     }

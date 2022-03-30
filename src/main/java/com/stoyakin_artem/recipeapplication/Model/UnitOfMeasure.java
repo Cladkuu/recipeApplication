@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 public class UnitOfMeasure extends BaseEntity{
 
@@ -17,4 +16,9 @@ public class UnitOfMeasure extends BaseEntity{
         return other instanceof UnitOfMeasure;
     }
 
+    @Builder
+    public UnitOfMeasure(Long id, String description) {
+        super(id);
+        this.description = description;
+    }
 }

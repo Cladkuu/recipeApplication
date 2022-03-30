@@ -10,7 +10,6 @@ import java.util.Set;
 @EqualsAndHashCode(exclude = {"recipes"})
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
 public class Category extends BaseEntity{
 
@@ -19,4 +18,10 @@ public class Category extends BaseEntity{
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes = new HashSet<>();
 
+    @Builder
+    public Category(Long id, String categoryName, Set<Recipe> recipes) {
+        super(id);
+        this.categoryName = categoryName;
+        this.recipes = recipes;
+    }
 }
