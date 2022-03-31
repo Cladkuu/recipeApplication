@@ -17,7 +17,7 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
-    @GetMapping(value = {"show/{id}"})
+    @GetMapping(value = {"{id}"})
     public String getRecipe(@PathVariable Long id, Model model){
         model.addAttribute("recipe", recipeService.findById(id));
         return "recipe/show";
@@ -34,6 +34,6 @@ public class RecipeController {
     public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand){
         RecipeCommand savedRecipe = recipeService.SaveRecipe(recipeCommand);
 
-        return "redirect:show/" + savedRecipe.getId();
+        return "redirect:" + savedRecipe.getId();
     }
 }
