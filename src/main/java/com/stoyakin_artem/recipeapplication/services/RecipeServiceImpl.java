@@ -33,7 +33,10 @@ public class RecipeServiceImpl implements RecipeService {
         return recipeRepository.findById(id).orElse(null);
     }
 
-
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
+    }
 
 
     @Transactional
