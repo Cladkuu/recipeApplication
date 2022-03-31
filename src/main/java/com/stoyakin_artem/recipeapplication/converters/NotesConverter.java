@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Component
 public class NotesConverter implements Converter<NotesCommand, Notes>{
 
-    private final RecipesConverter recipesConverter;
+    //private final RecipesConverter recipesConverter;
 
     @Synchronized
     @Override
@@ -17,7 +17,6 @@ public class NotesConverter implements Converter<NotesCommand, Notes>{
         if (notes==null) return null;
         return NotesCommand.builder()
                 .recipeNotes(notes.getRecipeNotes())
-                .recipeCommand(recipesConverter.convertToCommand(notes.getRecipe()))
                 .id(notes.getId())
                 .build();
     }
@@ -28,7 +27,6 @@ public class NotesConverter implements Converter<NotesCommand, Notes>{
         if (notesCommand==null) return null;
         return Notes.builder()
                 .recipeNotes(notesCommand.getRecipeNotes())
-                .recipe(recipesConverter.convertToEntity(notesCommand.getRecipeCommand()))
                 .id(notesCommand.getId())
                 .build();
 

@@ -15,8 +15,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class RecipeCommand extends BaseEntity {
 
-
-    @Lob
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -24,8 +22,6 @@ public class RecipeCommand extends BaseEntity {
     private String url;
     private String source;
     private String direction;
-
-    @Lob
     private byte[] image;
     private NotesCommand notesCommand;
     private Set<IngredientCommand> ingredientCommands = new HashSet<>();

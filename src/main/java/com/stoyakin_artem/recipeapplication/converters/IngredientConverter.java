@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class IngredientConverter implements Converter<IngredientCommand, Ingredient>{
 
     private final UnitOfMeasureConverter unitOfMeasureConverter;
-    private final RecipesConverter recipesConverter;
+    //private final RecipesConverter recipesConverter;
 
 
     @Override
@@ -20,7 +20,7 @@ public class IngredientConverter implements Converter<IngredientCommand, Ingredi
                 .amount(ingredient.getAmount())
                 .id(ingredient.getId())
                 .unitOfMeasureCommand(unitOfMeasureConverter.convertToCommand(ingredient.getUnitOfMeasure()))
-                .recipeCommand(recipesConverter.convertToCommand(ingredient.getRecipe()))
+                //.recipeCommand(recipesConverter.convertToCommand(ingredient.getRecipe()))
                 .build();
     }
 
@@ -30,7 +30,7 @@ public class IngredientConverter implements Converter<IngredientCommand, Ingredi
         return Ingredient.builder()
                 .description(ingredientCommand.getDescription())
                 .amount(ingredientCommand.getAmount())
-                .recipe(recipesConverter.convertToEntity(ingredientCommand.getRecipeCommand()))
+                //.recipe(recipesConverter.convertToEntity(ingredientCommand.getRecipeCommand()))
                 .unitOfMeasure(unitOfMeasureConverter.convertToEntity(ingredientCommand.getUnitOfMeasureCommand()))
                 .id(ingredientCommand.getId())
                 .build();

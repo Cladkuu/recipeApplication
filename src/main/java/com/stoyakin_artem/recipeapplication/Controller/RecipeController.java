@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -25,7 +23,17 @@ public class RecipeController {
         return "recipe/show";
     }
 
-    public RecipeCommand saveRecipe(RecipeCommand recipeCommand){
-        return recipeService.SaveRecipe(recipeCommand);
+
+    @GetMapping("new")
+    public String NewRecipe(Model model){
+        model.addAttribute("recipe", new RecipeCommand());
+        return "recipe/recipeform";
+    }
+
+    @PostMapping
+    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand){
+        RecipeCommand savedRecipe = recipeService.SaveRecipe(recipeCommand);
+
+        return "redirect:show/" + savedRecipe.getId();
     }
 }

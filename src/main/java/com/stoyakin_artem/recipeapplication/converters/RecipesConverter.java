@@ -57,6 +57,7 @@ public class RecipesConverter implements Converter<RecipeCommand, Recipe>{
         recipe.setServings(recipeCommand.getServings());
         recipe.setSource(recipeCommand.getSource());
         recipe.setUrl(recipeCommand.getUrl());
+        recipe.setNotes(notesConverter.convertToEntity(recipeCommand.getNotesCommand()));
 
         if (recipeCommand.getIngredientCommands()!=null & recipeCommand.getIngredientCommands().size()>0){
             recipeCommand.getIngredientCommands().forEach(ingredient -> recipe
