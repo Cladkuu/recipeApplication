@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +31,15 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe findById(Long id) {
         return recipeRepository.findById(id).orElse(null);
+    }
+
+
+
+
+    @Transactional
+    @Override
+    public RecipeCommand FindRecipeCommandById(Long id) {
+        return recipesConverter.convertToCommand(findById(id));
     }
 
     @Override
