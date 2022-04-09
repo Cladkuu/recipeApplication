@@ -30,10 +30,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long id) {
-
         return recipeRepository.findById(id).orElse(null);
-
-
     }
 
     @Override
