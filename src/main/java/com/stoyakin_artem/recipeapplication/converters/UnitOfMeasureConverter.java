@@ -3,11 +3,13 @@ import com.stoyakin_artem.recipeapplication.Model.Category;
 import com.stoyakin_artem.recipeapplication.Model.UnitOfMeasure;
 import com.stoyakin_artem.recipeapplication.commands.CategoryCommand;
 import com.stoyakin_artem.recipeapplication.commands.UnitOfMeasureCommand;
+import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UnitOfMeasureConverter implements Converter<UnitOfMeasureCommand, UnitOfMeasure>{
 
+    @Synchronized
     @Override
     public UnitOfMeasureCommand convertToCommand(UnitOfMeasure unitOfMeasure) {
         if (unitOfMeasure==null) return null;
@@ -17,6 +19,7 @@ public class UnitOfMeasureConverter implements Converter<UnitOfMeasureCommand, U
                 .build();
     }
 
+    @Synchronized
     @Override
     public UnitOfMeasure convertToEntity(UnitOfMeasureCommand unitOfMeasureCommand) {
         if (unitOfMeasureCommand==null) return null;

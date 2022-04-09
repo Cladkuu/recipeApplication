@@ -43,7 +43,7 @@ public class RecipeController {
         return "redirect:" + savedRecipe.getId();
     }
 
-    @DeleteMapping
+    @GetMapping
     @RequestMapping("{id}/delete")
     public String deleteRecipe(@PathVariable Long id){
         log.debug("deleting Recipe " + id);

@@ -4,6 +4,7 @@ import com.stoyakin_artem.recipeapplication.Model.*;
 import com.stoyakin_artem.recipeapplication.repositories.CategoryRepository;
 import com.stoyakin_artem.recipeapplication.repositories.RecipeRepository;
 import com.stoyakin_artem.recipeapplication.repositories.UnitOfMeasureRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -13,25 +14,18 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class Bootstrap implements CommandLineRunner {
     private final CategoryRepository categoryRepository;
     private  final UnitOfMeasureRepository unitOfMeasureRepository;
     private final RecipeRepository recipeRepository;
 
-    public Bootstrap(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository, RecipeRepository recipeRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
-        this.recipeRepository = recipeRepository;
-    }
-
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-
         recipeRepository.save(makingRecipe());
         log.debug("Loading data");
-
     }
 
     private Recipe makingRecipe() {

@@ -2,6 +2,7 @@ package com.stoyakin_artem.recipeapplication.converters;
 import com.stoyakin_artem.recipeapplication.Model.Ingredient;
 import com.stoyakin_artem.recipeapplication.commands.IngredientCommand;
 import lombok.RequiredArgsConstructor;
+import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
@@ -12,11 +13,13 @@ public class IngredientConverter implements Converter<IngredientCommand, Ingredi
     //private final RecipesConverter recipesConverter;
 
 
+    @Synchronized
     @Override
     public IngredientCommand convertToCommand(Ingredient ingredient) {
         if (ingredient==null) return null;
         return IngredientCommand.builder()
                 .description(ingredient.getDescription())
+                .recipeId(ingredient.getRecipe().getId())
                 .amount(ingredient.getAmount())
                 .id(ingredient.getId())
                 .unitOfMeasureCommand(unitOfMeasureConverter.convertToCommand(ingredient.getUnitOfMeasure()))
@@ -24,6 +27,7 @@ public class IngredientConverter implements Converter<IngredientCommand, Ingredi
                 .build();
     }
 
+    @Synchronized
     @Override
     public Ingredient convertToEntity(IngredientCommand ingredientCommand) {
         if (ingredientCommand==null) return null;

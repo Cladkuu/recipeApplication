@@ -1,10 +1,13 @@
 package com.stoyakin_artem.recipeapplication.converters;
 import com.stoyakin_artem.recipeapplication.Model.Category;
 import com.stoyakin_artem.recipeapplication.commands.CategoryCommand;
+import lombok.Synchronized;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryConverter implements Converter<CategoryCommand, Category>{
+
+    @Synchronized
     @Override
     public CategoryCommand convertToCommand(Category category) {
         if (category==null) return null;
@@ -13,6 +16,7 @@ public class CategoryConverter implements Converter<CategoryCommand, Category>{
                 .id(category.getId()).build();
     }
 
+    @Synchronized
     @Override
     public Category convertToEntity(CategoryCommand categoryCommand) {
         if (categoryCommand==null) return null;
