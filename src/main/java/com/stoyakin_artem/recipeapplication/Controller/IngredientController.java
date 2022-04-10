@@ -2,6 +2,7 @@ package com.stoyakin_artem.recipeapplication.Controller;
 
 import com.stoyakin_artem.recipeapplication.Model.Ingredient;
 import com.stoyakin_artem.recipeapplication.commands.IngredientCommand;
+import com.stoyakin_artem.recipeapplication.commands.UnitOfMeasureCommand;
 import com.stoyakin_artem.recipeapplication.repositories.IngredientRepository;
 import com.stoyakin_artem.recipeapplication.services.IngredientService;
 import com.stoyakin_artem.recipeapplication.services.RecipeService;
@@ -13,6 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.io.Console;
 
 @Slf4j
 @Controller
@@ -49,10 +53,24 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
+    @GetMapping(value = {"{recipeId}/ingredients/new"})
+    public String CreateIngredient(Model model, @PathVariable Long recipeId){
+        Long recipeID = recipeService.findById(recipeId).getId();
+        IngredientCommand ingredientCommand = IngredientCommand.builder()
+                .recipeId(recipeID)
+                .unitOfMeasureCommand(new UnitOfMeasureCommand())
+                .build();
+        System.out.println(ingredientCommand.toString());
+        model.addAttribute("ingredient", ingredientCommand);
+        model.addAttribute("uomList", uoMService.AllUoMs());
+        return "recipe/ingredient/ingredientform";
+    }
+
 
     @PostMapping(value = {"{recipeId}/ingredients/"})
     public String SaveOrUpdateIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientCommand ingredientCommand, Model model){
         ingredientService.SaveOrUpdateIngredientCommand(ingredientCommand);
+        System.out.println(ingredientCommand.toString());
         return "redirect:/recipe/" + recipeId + "/ingredients/";
     }
 
