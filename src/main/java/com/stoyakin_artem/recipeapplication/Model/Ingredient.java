@@ -44,4 +44,8 @@ public class Ingredient extends BaseEntity{
         return other instanceof Ingredient;
     }
 
+    public void deleteRecipe(){
+        this.recipe = null;
+    }
+
 }

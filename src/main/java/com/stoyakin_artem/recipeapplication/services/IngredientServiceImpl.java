@@ -10,6 +10,7 @@ import com.stoyakin_artem.recipeapplication.repositories.UnitOfMeasureRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 
@@ -57,10 +58,20 @@ public class IngredientServiceImpl implements IngredientService {
         return ingredientConverter.convertToCommand(ingredient);
     }
 
-
     public void deleteIngredient(Long recipeId, Long ingredientId){
-        Ingredient ingredient = ingredientConverter.convertToEntity(findByRecipeIdAndIngredientId(recipeId, ingredientId));
-        recipeService.findById(recipeId);
+        Recipe recipe = recipeService.findById(recipeId);
+        if(recipe!=null)
+        {
+            Ingredient ingredient = recipe.getIngredients().stream()
+                    .filter(ingredient1 -> ingredient1.getId().equals(ingredientId))
+                    .findFirst().orElse(null);
+
+            if(ingredient!=null){
+                recipe.deleteIngredient(ingredient);
+                recipeRepository.save(recipe);
+                repository.deleteById(ingredientId);
+            }
+        }
 
     }
 }

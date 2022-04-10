@@ -49,6 +49,11 @@ public class Recipe extends BaseEntity{
         notes.setRecipe(this);
     }
 
+    public void deleteIngredient(Ingredient ingredient){
+        this.ingredients.remove(ingredient);
+        ingredient.deleteRecipe();
+    }
+
 
     protected boolean canEqual(final Object other) {
         return other instanceof Recipe;

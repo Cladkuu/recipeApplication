@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = {"recipe/{recipeId}/ingredients/"})
+@RequestMapping(value = {"recipe/"})
 public class IngredientController {
 
     private final RecipeService recipeService;
@@ -25,7 +25,7 @@ public class IngredientController {
     private final UoMService uoMService;
     private final IngredientRepository repository;
 
-    @GetMapping
+    @GetMapping(value = {"{recipeId}/ingredients/"})
     public String GetIngredients(@PathVariable Long recipeId, Model model){
         log.debug("Getting all ingredients of " + recipeId);
         model.addAttribute("recipe", recipeService.FindRecipeCommandById(recipeId));
@@ -33,7 +33,7 @@ public class IngredientController {
         return "recipe/ingredient/list";
     }
 
-    @GetMapping("{ingredientId}")
+    @GetMapping("{recipeId}/ingredients/{ingredientId}")
     public String GetIngredient(@PathVariable Long ingredientId, Model model, @PathVariable Long recipeId){
         log.debug("Get single ingredient" + ingredientId);
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
@@ -41,7 +41,7 @@ public class IngredientController {
         return "recipe/ingredient/show";
     }
 
-    @GetMapping(value = {"{ingredientId}/update"})
+    @GetMapping(value = {"{recipeId}/ingredients/{ingredientId}/update"})
     public String UpdateIngredient(@PathVariable Long ingredientId, Model model, @PathVariable Long recipeId){
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
         model.addAttribute("uomList", uoMService.AllUoMs());
@@ -50,19 +50,17 @@ public class IngredientController {
     }
 
 
-    @PostMapping
-    public IngredientCommand SaveOrUpdateIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientCommand ingredientCommand, Model model){
+    @PostMapping(value = {"{recipeId}/ingredients/"})
+    public String SaveOrUpdateIngredient(@PathVariable Long recipeId, @ModelAttribute IngredientCommand ingredientCommand, Model model){
         ingredientService.SaveOrUpdateIngredientCommand(ingredientCommand);
-
-
-        return  ingredientCommand;
+        return "redirect:/recipe/" + recipeId + "/ingredients/";
     }
 
-    @DeleteMapping(value = {"{ingredientId}/delete"})
+    @GetMapping(value = {"{recipeId}/ingredients/{ingredientId}/delete"})
     public String DeleteIngredient(@PathVariable Long ingredientId, Model model, @PathVariable Long recipeId){
+        ingredientService.deleteIngredient(recipeId, ingredientId);
 
-
-        return "redirect:/";
+        return "redirect:/recipe/" + recipeId + "/ingredients/";
     }
 
 }
