@@ -9,14 +9,11 @@ import com.stoyakin_artem.recipeapplication.services.RecipeService;
 import com.stoyakin_artem.recipeapplication.services.UoMService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.Console;
+
 
 @Slf4j
 @Controller
@@ -27,7 +24,6 @@ public class IngredientController {
     private final RecipeService recipeService;
     private final IngredientService ingredientService;
     private final UoMService uoMService;
-    private final IngredientRepository repository;
 
     @GetMapping(value = {"{recipeId}/ingredients/"})
     public String GetIngredients(@PathVariable Long recipeId, Model model){
