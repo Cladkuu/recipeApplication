@@ -40,7 +40,7 @@ public class IngredientServiceImpl implements IngredientService {
         Recipe recipe = recipeService.findById(ingredientCommand.getRecipeId());
 
         Ingredient ingredient = recipe.getIngredients().stream()
-                .filter(ingredient1 -> ingredient1.getId().equals(ingredientCommand.getRecipeId()))
+                .filter(ingredient1 -> ingredient1.getId().equals(ingredientCommand.getId()))
                 .findFirst().orElse(null);
 
         if(ingredient==null){
@@ -55,6 +55,12 @@ public class IngredientServiceImpl implements IngredientService {
         }
 
         recipeRepository.save(recipe);
+        ingredient = recipeRepository.findById(recipe.getId()).orElse(null)
+                .getIngredients().stream()
+                .filter(ingredient1 -> ingredient1.getAmount().equals(ingredientCommand.getAmount()))
+                .filter(ingredient1 -> ingredient1.getDescription().equals(ingredientCommand.getAmount()))
+                .findFirst().orElse(null);
+
         return ingredientConverter.convertToCommand(ingredient);
     }
 
