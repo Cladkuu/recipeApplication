@@ -30,6 +30,7 @@ public class RecipesConverter implements Converter<RecipeCommand, Recipe>{
         recipeCommand.setSource(recipe.getSource());
         recipeCommand.setUrl(recipe.getUrl());
         recipeCommand.setNotesCommand(notesConverter.convertToCommand(recipe.getNotes()));
+        recipeCommand.setImage(recipe.getImage());
 
         if (recipe.getIngredients()!=null & recipe.getIngredients().size()>0){
             recipe.getIngredients().forEach(ingredient -> recipeCommand
@@ -58,6 +59,7 @@ public class RecipesConverter implements Converter<RecipeCommand, Recipe>{
         recipe.setSource(recipeCommand.getSource());
         recipe.setUrl(recipeCommand.getUrl());
         recipe.setNotes(notesConverter.convertToEntity(recipeCommand.getNotesCommand()));
+
 
         if (recipeCommand.getIngredientCommands()!=null & recipeCommand.getIngredientCommands().size()>0){
             recipeCommand.getIngredientCommands().forEach(ingredient -> recipe
