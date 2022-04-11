@@ -1,9 +1,7 @@
 package com.stoyakin_artem.recipeapplication.Controller;
 
-import com.stoyakin_artem.recipeapplication.Model.Ingredient;
 import com.stoyakin_artem.recipeapplication.commands.IngredientCommand;
 import com.stoyakin_artem.recipeapplication.commands.UnitOfMeasureCommand;
-import com.stoyakin_artem.recipeapplication.repositories.IngredientRepository;
 import com.stoyakin_artem.recipeapplication.services.IngredientService;
 import com.stoyakin_artem.recipeapplication.services.RecipeService;
 import com.stoyakin_artem.recipeapplication.services.UoMService;
@@ -25,12 +23,16 @@ public class IngredientController {
     private final IngredientService ingredientService;
     private final UoMService uoMService;
 
+    private static final String VIEWS_INGREDIENT_SHOW = "recipe/ingredient/show";
+    private static final String VIEWS_INGREDIENT_LIST = "recipe/ingredient/list";
+    private static final String VIEWS_INGREDIENT_INGREDIENT_FORM = "recipe/ingredient/ingredientform";
+
     @GetMapping(value = {"{recipeId}/ingredients/"})
     public String GetIngredients(@PathVariable Long recipeId, Model model){
         log.debug("Getting all ingredients of " + recipeId);
         model.addAttribute("recipe", recipeService.FindRecipeCommandById(recipeId));
 
-        return "recipe/ingredient/list";
+        return VIEWS_INGREDIENT_LIST;
     }
 
     @GetMapping("{recipeId}/ingredients/{ingredientId}")
@@ -38,7 +40,7 @@ public class IngredientController {
         log.debug("Get single ingredient" + ingredientId);
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
 
-        return "recipe/ingredient/show";
+        return VIEWS_INGREDIENT_SHOW;
     }
 
     @GetMapping(value = {"{recipeId}/ingredients/{ingredientId}/update"})
@@ -46,7 +48,7 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
         model.addAttribute("uomList", uoMService.AllUoMs());
 
-        return "recipe/ingredient/ingredientform";
+        return VIEWS_INGREDIENT_INGREDIENT_FORM;
     }
 
     @GetMapping(value = {"{recipeId}/ingredients/new"})
@@ -59,7 +61,7 @@ public class IngredientController {
         System.out.println(ingredientCommand.toString());
         model.addAttribute("ingredient", ingredientCommand);
         model.addAttribute("uomList", uoMService.AllUoMs());
-        return "recipe/ingredient/ingredientform";
+        return VIEWS_INGREDIENT_INGREDIENT_FORM;
     }
 
 

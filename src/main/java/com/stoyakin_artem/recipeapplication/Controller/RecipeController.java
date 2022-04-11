@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -17,29 +18,32 @@ public class RecipeController {
 
     private final RecipeService recipeService;
 
+    private static final String VIEWS_RECIPE_SHOW = "recipe/show";
+    private static final String VIEWS_RECIPE_RECIPE_FORM = "recipe/recipeform";
+
+
     @GetMapping(value = {"{id}"})
     public String getRecipe(@PathVariable Long id, Model model){
         model.addAttribute("recipe", recipeService.findById(id));
-        return "recipe/show";
+        return VIEWS_RECIPE_SHOW;
     }
 
 
     @GetMapping("new")
     public String NewRecipe(Model model){
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/recipeform";
+        return VIEWS_RECIPE_RECIPE_FORM;
     }
 
     @GetMapping("{id}/update")
     public String updateRecipe(@PathVariable Long id, Model model){
         model.addAttribute("recipe", recipeService.FindRecipeCommandById(id));
-        return "recipe/recipeform";
+        return VIEWS_RECIPE_RECIPE_FORM;
     }
 
     @PostMapping
-    public String saveOrUpdateRecipe(@ModelAttribute RecipeCommand recipeCommand){
+    public String saveOrUpdateRecipe( RecipeCommand recipeCommand){
         RecipeCommand savedRecipe = recipeService.SaveRecipe(recipeCommand);
-
         return "redirect:" + savedRecipe.getId();
     }
 
@@ -50,4 +54,5 @@ public class RecipeController {
         recipeService.deleteById(id);
         return "redirect:/";
     }
+
 }

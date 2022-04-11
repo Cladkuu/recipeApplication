@@ -23,10 +23,12 @@ public class ImageController {
     private final ImageService imageService;
     private final RecipeService recipeService;
 
+    private static final String VIEWS_IMAGE_UPLOAD_FORM = "recipe/imageuploadform";
+
     @GetMapping(value = {"{recipeId}/image"})
     public String GetImageWindow(@PathVariable Long recipeId, Model model){
         model.addAttribute("recipe", recipeService.FindRecipeCommandById(recipeId));
-        return "recipe/imageuploadform";
+        return VIEWS_IMAGE_UPLOAD_FORM;
     }
 
     @PostMapping(value = {"{recipeId}/image"})
